@@ -1,0 +1,5 @@
+{{- $.Scratch.Add "index" slice -}}
+{{- range .Site.Data.data -}}
+    {{- $.Scratch.Add "index" (dict "database_title" .database_title "description" .description "unit_of_observation" .unit_of_observation "time_series" .time_series "publication_year" .publication_year "version" .version "date_added" .date_added "tags" .tags "url" .url) -}}
+{{- end -}}
+{{- $.Scratch.Get "index" | jsonify -}}

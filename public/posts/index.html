@@ -1,0 +1,39 @@
+<style>
+      body {
+        margin: 8px auto;
+        white-space: pre-wrap;
+        font-family: Helvetica, Arial;
+        max-width: 500px;
+        font-size: 15px;
+      }
+
+input[type="text"] {
+     display: block;
+     margin : 0 auto;
+     width: 50%;
+     }
+ul {
+  padding: 0px;
+}
+.tags li {
+    display: inline;
+    padding: 0px;
+    display: inline-block;
+}
+.tags li:after {
+    content: '/';
+    margin: 0 0.4rem 0 0.4rem;
+    padding: 0;
+}
+.tags li:last-child:after {
+    content: none;
+}
+</style>
+
+<div id="fastSearch">
+   <input type="text" 	id="searchInput" class="input">
+   <ul id="searchResults">
+   </ul>
+ </div>
+ <script src="/js/fuse.js"></script> 
+ <script src="/js/search.js"></script>
