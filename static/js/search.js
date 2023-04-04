@@ -17,7 +17,10 @@ window.onload = loadSearch;
 // ==========================================
 // execute search as each character is typed
 //
-document.getElementById("searchInput").onkeyup = function(e) { 
+document.getElementById("searchInputSmall").onkeyup = function(e) { 
+  executeSearch(this.value);
+}
+document.getElementById("searchInputLarge").onkeyup = function(e) { 
   executeSearch(this.value);
 }
 
@@ -68,7 +71,6 @@ function loadSearch() {
   });
 }
 
-
 // ==========================================
 // using the index we loaded on CMD-/, run 
 // a search query (for "term") every time a letter is typed
@@ -96,7 +98,7 @@ function executeSearch(term) {
     }
 	    console.log(tags)
 
-    searchitems = searchitems + '<a href=' + results[item].item.url + '><span class="title">' + results[item].item.database_title + '</a></span><br/><br/>'+ results[item].item.description + '<br/><br/><ul class="tags">' + tags + '</ul><hr>';
+    searchitems = searchitems + '<div id="result">' + '<a href=' + results[item].item.url + '><span class="title">' + results[item].item.database_title + '</a></span><br/><br/>'+ results[item].item.description + '<br/><br/><ul class="tags">' + tags + '</ul><hr></div>';
     }
   resultsAvailable = true;
   }
