@@ -97,6 +97,9 @@ function executeSearch(term) {
 	    }
     }
 	    console.log(tags)
+    if (results[item].item.description === null) {
+	    results[item].item.description = "<em>Description not available.</em>"
+    }
 
     searchitems = searchitems + '<div id="result">' + '<a href=' + results[item].item.url + '><span class="title">' + results[item].item.database_title + '</a></span><br/><br/>'+ results[item].item.description + '<br/><br/><ul class="tags">' + tags + '</ul><hr></div>';
     }
