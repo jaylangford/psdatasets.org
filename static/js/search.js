@@ -18,10 +18,10 @@ window.onload = loadSearch;
 // execute search as each character is typed
 //
 document.getElementById("searchInputSmall").onkeyup = function(e) { 
-  executeSearch(this.value);
+  executeSearch(this.value, 1);
 }
 document.getElementById("searchInputLarge").onkeyup = function(e) { 
-  executeSearch(this.value);
+  executeSearch(this.value, 1);
 }
 
 
@@ -68,6 +68,7 @@ function loadSearch() {
         ]
     };
     fuse = new Fuse(data, options); // build the index from the json file
+    executeSearch('', 1); // execute search with empty term and page 
   });
 }
 
@@ -76,34 +77,75 @@ function loadSearch() {
 // a search query (for "term") every time a letter is typed
 // in the search box
 //
-function executeSearch(term) {
+function executeSearch(term, page) {
   let results = fuse.search(term); // the actual query being run using fuse.js
   console.log(results)
 
   let searchitems = ''; // our results bucket
+  const itemsPerPage = 5;
 
   if (results.length === 0) { // no results based on what was typed into the input box
     resultsAvailable = false;
     searchitems = '';
-  } else { // build our html 
-    for (let item in results.slice(0,5)) { // only show first 5 results
+  } else { // build our html
+    console.log(page);
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const slicedResults = results.slice(start, end);
+    for (let item in slicedResults) { // only show first 5 results
 
     let tags = '';
 
-    if (!(results[item].item.tags.length === 0)) {
+    if (!(slicedResults[item].item.tags.length === 0)) {
 	tags = 'tags: ';
-	    for (let tag in results[item].item.tags) {
-		    tags += '<li>' + results[item].item.tags[tag] + '</li>';
+	    for (let tag in slicedResults[item].item.tags) {
+		    tags += '<li>' + slicedResults[item].item.tags[tag] + '</li>';
 	    }
     }
 	    console.log(tags)
-    if (results[item].item.description === null) {
-	    results[item].item.description = "<em>Description not available.</em>"
+    if (slicedResults[item].item.description === null) {
+	    slicedResults[item].item.description = "<em>Description not available.</em>"
     }
 
-    searchitems = searchitems + '<div id="result">' + '<a href=' + results[item].item.url + '><span class="title">' + results[item].item.database_title + '</a></span><br/><br/>'+ results[item].item.description + '<br/><br/><ul class="tags">' + tags + '</ul><hr></div>';
+    searchitems = searchitems + '<div id="result">' + '<a href=' + slicedResults[item].item.url + '><span class="title">' + slicedResults[item].item.database_title + '</a></span><br/><br/>'+ slicedResults[item].item.description + '<br/><br/><ul class="tags">' + tags + '</ul><hr></div>';
     }
   resultsAvailable = true;
   }
   document.getElementById("searchResults").innerHTML = searchitems;
+    // build pagination links
+  if (resultsAvailable) {
+    console.log(results.length);
+    console.log(itemsPerPage);
+    const totalPages = Math.ceil(results.length / itemsPerPage);
+    let pagination = '';
+
+    if (totalPages > 1) {
+      pagination += '<ul class="pagination">';
+      
+      if (page > 1) {
+        pagination += '<li><a href="#" onclick="executeSearch(\'' + term + '\', ' + (page - 1) + ')">&laquo;</a></li>';
+      } else {
+        pagination += '<li class="disabled">&laquo;</li>';
+      }
+
+      for (let i = 1; i <= totalPages; i++) {
+        if (i === page) {
+          pagination += '<li class="active">' + i + '</li>';
+        } else {
+          pagination += '<li><a href="#" onclick="executeSearch(\'' + term + '\', ' + i + ')">' + i + '</a></li>';
+        }
+      }
+
+      if (page < totalPages) {
+        pagination += '<li><a href="#" onclick="executeSearch(\'' + term + '\', ' + (page + 1) + ')">&raquo;</a></li>';
+      } else {
+        pagination += '<li class="disabled">&raquo;</li>';
+      }
+
+      pagination += '</ul>';
+    }
+
+    document.getElementById("pagination").innerHTML = pagination;
+    console.log(pagination);
+  }
 }

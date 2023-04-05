@@ -20,6 +20,7 @@ body {
 }
 
 main {
+  position: relative;
   width: 100%;
   flex: 1;
   margin: 0 auto;
@@ -93,6 +94,7 @@ input[type=text]::placeholder {
   flex: 1;
   margin: 0 auto;
   width: 100%;
+  padding-bottom: 40px
 }
 
 #searchResults.result {
@@ -103,18 +105,29 @@ ul {
   padding: 0;
 }
 
-.tags li {
+#pagination {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+li[class="active"] a {
+	color: #444;
+	text-decoration: none;
+}
+.tags li, .pagination li {
     display: inline;
     padding: 0px;
     display: inline-block;
     white-space: break-spaces;
 }
-.tags li:after {
+.tags li:after,.pagination li:after {
     content: '/';
     margin: 0 0.5rem 0 0.5rem;
     padding: 0;
 }
-.tags li:last-child:after {
+.tags li:last-child:after,.pagination li:last-child:after {
     content: none;
 }
 
