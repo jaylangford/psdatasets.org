@@ -1,6 +1,6 @@
-baseURL = 'http://example.org/'
+baseURL = 'http://psdatasets.org/'
 languageCode = 'en-us'
-title = 'My New Hugo Site'
+title = 'PSdatasets.org'
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
