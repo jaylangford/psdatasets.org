@@ -130,7 +130,6 @@ li[class="active"] a {
 .tags li:last-child:after,.pagination li:last-child:after {
     content: none;
 }
-
 footer {
   display: flex;
   position: relative;
@@ -170,4 +169,14 @@ footer {
   .tags li:after {
     margin: 0 1rem 1rem;
                   }
+.pagination {
+	font-size: 60px;
+	margin: 30px;
+}
+.pagination li:after {
+    margin: 0 1.2rem 1.2rem;
+}
+  #searchResults {
+  padding-bottom: 130px;
+  }
 }
