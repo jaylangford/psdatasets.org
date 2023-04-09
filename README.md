@@ -65,7 +65,7 @@ Now you can run `python3 db.py` to build the index for the database.
 With the generated index, you can then test the website locally.
 
 ```{shell}
-hugo server --disableFastRender
+hugo server -b localhost --disableFastRender
 ```
 
 Before committing, be sure to build the index and the website.
