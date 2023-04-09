@@ -2,9 +2,9 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>PSdatasets.org</title>
-    <link>https://psdatasets.org/</link>
+    <link>https://jaylangford.github.io/psdatasets.org/</link>
     <description>Recent content on PSdatasets.org</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://psdatasets.org/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://jaylangford.github.io/psdatasets.org/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
