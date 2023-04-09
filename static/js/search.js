@@ -123,7 +123,7 @@ function executeSearch(term, page) {
       pagination += '<ul class="pagination">';
       
       if (page > 1) {
-        pagination += '<li><a href="#" onclick="executeSearch(\'' + term + '\', ' + (page - 1) + ')">&laquo;</a></li>';
+        pagination += '<li><a href="#" class="page" onclick="executeSearch(\'' + term + '\', ' + (page - 1) + ')">&laquo;</a></li>';
       } else {
         pagination += '<li class="disabled">&laquo;</li>';
       }
@@ -132,12 +132,12 @@ function executeSearch(term, page) {
         if (i === page) {
           pagination += '<li class="active">' + i + '</li>';
         } else {
-          pagination += '<li><a href="#" onclick="executeSearch(\'' + term + '\', ' + i + ')">' + i + '</a></li>';
+          pagination += '<li><a href="#" class="page" onclick="executeSearch(\'' + term + '\', ' + i + ')">' + i + '</a></li>';
         }
       }
 
       if (page < totalPages) {
-        pagination += '<li><a href="#" onclick="executeSearch(\'' + term + '\', ' + (page + 1) + ')">&raquo;</a></li>';
+        pagination += '<li><a href="#" class="page" onclick="executeSearch(\'' + term + '\', ' + (page + 1) + ')">&raquo;</a></li>';
       } else {
         pagination += '<li class="disabled">&raquo;</li>';
       }

@@ -116,6 +116,9 @@ li[class="active"] a {
 	color: #444;
 	text-decoration: none;
 }
+a[class="page"] {
+	color: #0000EE;
+}
 .tags li, .pagination li {
     display: inline;
     padding: 0px;
