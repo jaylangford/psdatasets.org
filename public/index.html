@@ -1,39 +1,41 @@
-<style>
-      body {
-        margin: 8px auto;
-        white-space: pre-wrap;
-        font-family: Helvetica, Arial;
-        max-width: 500px;
-        font-size: 15px;
-      }
-
-input[type="text"] {
-     display: block;
-     margin : 0 auto;
-     width: 50%;
-     }
-ul {
-  padding: 0px;
-}
-.tags li {
-    display: inline;
-    padding: 0px;
-    display: inline-block;
-}
-.tags li:after {
-    content: '/';
-    margin: 0 0.4rem 0 0.4rem;
-    padding: 0;
-}
-.tags li:last-child:after {
-    content: none;
-}
-</style>
-
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+	<meta name="generator" content="Hugo 0.106.0">
+    <meta charset="utf-8">
+    <title>
+      PSdatasets.org
+    </title>
+    <link rel="stylesheet" href="/css/custom.css">
+  </head>
+  <body>
+    <header>
+    <div class="title-bar">
+	<span class="title"><a href="https://psdatasets.org" style="text-decoration: none; color: inherit;"><h1 class="title">PSdatasets.org</h1></a></span>
+    </div>
+    </header>
+    <main>
+    
+<div class="input-container">
 <div id="fastSearch">
-   <input type="text" 	id="searchInput" class="input">
-   <ul id="searchResults">
-   </ul>
+   <input type="text" aria-label="desktop search box" class="large" placeholder="Search for political science datasets..." id="searchInputLarge" class="input">
+   <input type="text" aria-label="mobile search box" class="small" placeholder="Search datasets..." id="searchInputSmall" class="input">
  </div>
- <script src="/js/fuse.js"></script> 
- <script src="/js/search.js"></script>
+ </div>
+ <ul id="searchResults">
+ </ul>
+ <div id="pagination"></div>
+
+    </main>
+    
+    <footer>
+    <div id="footer">
+    <p>&copy; Jay Langford -- 2023</p>
+    </div>
+    </footer>
+    
+  </body>
+<script src="/js/fuse.js"></script> 
+<script src="/js/search.js"></script>
+
+</html>

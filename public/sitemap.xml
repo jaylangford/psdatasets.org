@@ -2,24 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://example.org/posts/one/</loc>
+    <loc>https://psdatasets.org/categories/</loc>
   </url><url>
-    <loc>http://example.org/categories/</loc>
+    <loc>https://psdatasets.org/</loc>
   </url><url>
-    <loc>http://example.org/categories/one/</loc>
-  </url><url>
-    <loc>http://example.org/tags/post/</loc>
-  </url><url>
-    <loc>http://example.org/posts/</loc>
-  </url><url>
-    <loc>http://example.org/</loc>
-    <priority>0.1</priority>
-  </url><url>
-    <loc>http://example.org/search/</loc>
-    <priority>0.1</priority>
-  </url><url>
-    <loc>http://example.org/tags/stuff/</loc>
-  </url><url>
-    <loc>http://example.org/tags/</loc>
+    <loc>https://psdatasets.org/tags/</loc>
   </url>
 </urlset>
