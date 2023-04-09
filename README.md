@@ -60,7 +60,7 @@ Then install the project requirements.
 python3 -m pip install -r requirements.txt
 ```
 
-Now you can run `{shell}python3 db.py` to build the index for the database.
+Now you can run `python3 db.py` to build the index for the database.
 
 With the generated index, you can then test the website locally.
 
