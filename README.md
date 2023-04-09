@@ -28,7 +28,13 @@ choco install hugo-extended python
 
 #### After Hugo and Python Installation
 
-Once you have hugo and python installed, you will need to set up your python virtual environment.
+Clone the repository to your local machine.
+
+```{shell}
+mkdir psdatasets.org && cd psdatasets.org && git clone https://github.com/jaylangford/psdataset.org
+```
+
+Next you will need to set up your python virtual environment.
 
 ```{shell}
 python3 -m venv .venv
