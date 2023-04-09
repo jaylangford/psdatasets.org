@@ -3,7 +3,7 @@ import pandas as pd
 data_df = pd.read_csv('index.csv')
 
 
-# There isn't an easy way to represent a list in a row in Excel, so just grab "tags" plus all the unnamed columns
+# Grab "tags" column plus all the unnamed columns, which should contain tags as well
 
 only_tags_df = data_df.filter(regex=("tags|Unnamed:.*"))
 
