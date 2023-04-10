@@ -18,10 +18,10 @@ window.onload = loadSearch;
 // execute search as each character is typed
 //
 document.getElementById("searchInputSmall").onkeyup = function(e) { 
-  executeSearch(this.value, 1);
+  executeSearch(this.value, 1, 1, 5);
 }
 document.getElementById("searchInputLarge").onkeyup = function(e) { 
-  executeSearch(this.value, 1);
+  executeSearch(this.value, 1, 1, 8);
 }
 
 
@@ -72,26 +72,91 @@ function loadSearch() {
   });
 }
 
+// ============================================
+// Make the div containing the links at the
+// bottom of the page to different pages
+//
+
+function buildPageLinks(page, firstPage, lastPage, totalPages, term) {
+
+    if (firstPage < 1) {
+	    let overshoot = 1 - firstPage;
+	    firstPage = 1;
+	    lastPage = lastPage + overshoot;
+	}
+
+    if (lastPage > totalPages) {
+	    let overshoot = (lastPage - totalPages);
+
+	    lastPage = totalPages;
+
+	    if ((firstPage - overshoot) >= 1) {
+		    firstPage = firstPage - overshoot;
+	    } else {
+		    firstPage = 1;
+	    }
+    }
+
+    let pagination = '';
+    let pagination_width = lastPage - firstPage;
+
+    if (totalPages > 1) {
+        pagination += '<ul class="pagination">';
+
+      if (page > 1) {
+        pagination += '<li><a href="#" class="page" onclick="executeSearch(\'' + term + '\', ' + (page - 1) + ', ' + firstPage + ', ' + lastPage + ')">&laquo;</a></li>';
+      } else {
+        pagination += '<li class="disabled">&laquo;</li>';
+      }
+
+      if (firstPage > 1) {
+	      pagination += '<li><a href="#/" class="page" onclick="buildPageLinks(' + page + ', ' + (firstPage - 3) + ', ' + (lastPage - 3) + ', ' + totalPages + ', \'' + term + '\')">&#8230;</a></li>';
+	      pagination_width -= 1;
+}
+      if (lastPage < totalPages) {
+	       pagination_width -= 1;
+      }
+      for (let i = firstPage; (i <= (firstPage + pagination_width)) && (i <= lastPage); i++) {
+		      if (i === page) {	
+			      pagination += '<li class="active">' + i + '</li>';
+		      } else {
+			      pagination += '<li><a href="#" class="page" onclick="executeSearch(\'' + term + '\', ' + i + ', ' + firstPage + ', ' + lastPage + ')">' + i + '</a></li>';
+		      }
+      }
+
+      if (lastPage < totalPages) {
+	      pagination += '<li><a href="#/" class="page" onclick="buildPageLinks(' + page + ', ' + (firstPage + 3) + ', ' + (lastPage + 3) + ', ' + totalPages + ', \'' + term + '\')">&#8230;</a></li>';
+
+      }
+      if (page < totalPages) {
+        pagination += '<li><a href="#" class="page" onclick="executeSearch(\'' + term + '\', ' + (page + 1) + ', ' + firstPage + ', ' + lastPage + ')">&raquo;</a></li>';
+      } else {
+        pagination += '<li class="disabled">&raquo;</li>';
+      }
+
+      pagination += '</ul>';
+      }
+    document.getElementById("pagination").innerHTML = pagination;
+};
+
 // ==========================================
-// using the index we loaded on CMD-/, run 
+// using the index we loaded on page load, run 
 // a search query (for "term") every time a letter is typed
 // in the search box
 //
-function executeSearch(term, page) {
-  let results = fuse.search(term); // the actual query being run using fuse.js
-  console.log(results)
+function executeSearch(term, page, firstPage, lastPage) {
 
+  let results = fuse.search(term); // the actual query being run using fuse.js
   let searchitems = ''; // our results bucket
   const itemsPerPage = 5;
 
   if (results.length === 0) { // no results based on what was typed into the input box
-    resultsAvailable = false;
     searchitems = '';
   } else { // build our html
-    console.log(page);
     const start = (page - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     const slicedResults = results.slice(start, end);
+
     for (let item in slicedResults) { // only show first 5 results
 
     let tags = '';
@@ -102,7 +167,6 @@ function executeSearch(term, page) {
 		    tags += '<li>' + slicedResults[item].item.tags[tag] + '</li>';
 	    }
     }
-	    console.log(tags)
     if (slicedResults[item].item.description === null) {
 	    slicedResults[item].item.description = "<em>Description not available.</em>"
     }
@@ -113,39 +177,6 @@ function executeSearch(term, page) {
   }
   document.getElementById("searchResults").innerHTML = searchitems;
     // build pagination links
-  if (resultsAvailable) {
-    console.log(results.length);
-    console.log(itemsPerPage);
     const totalPages = Math.ceil(results.length / itemsPerPage);
-    let pagination = '';
-
-    if (totalPages > 1) {
-      pagination += '<ul class="pagination">';
-      
-      if (page > 1) {
-        pagination += '<li><a href="#" onclick="executeSearch(\'' + term + '\', ' + (page - 1) + ')">&laquo;</a></li>';
-      } else {
-        pagination += '<li class="disabled">&laquo;</li>';
-      }
-
-      for (let i = 1; i <= totalPages; i++) {
-        if (i === page) {
-          pagination += '<li class="active">' + i + '</li>';
-        } else {
-          pagination += '<li><a href="#" onclick="executeSearch(\'' + term + '\', ' + i + ')">' + i + '</a></li>';
-        }
-      }
-
-      if (page < totalPages) {
-        pagination += '<li><a href="#" onclick="executeSearch(\'' + term + '\', ' + (page + 1) + ')">&raquo;</a></li>';
-      } else {
-        pagination += '<li class="disabled">&raquo;</li>';
-      }
-
-      pagination += '</ul>';
-    }
-
-    document.getElementById("pagination").innerHTML = pagination;
-    console.log(pagination);
-  }
+    buildPageLinks(page, firstPage, lastPage, totalPages, term);
 }
