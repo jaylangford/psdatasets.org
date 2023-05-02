@@ -1,4 +1,3 @@
-module github.com/jaylangford/poliscidata
+module github.com/jaylangford/poliscidata.org
 
 go 1.19
-
