@@ -3,7 +3,6 @@ var list = document.getElementById('searchResults'); // targets the <ul>
 var first = list.firstChild; // first child of search list
 var last = list.lastChild; // last child of search list
 var maininput = document.getElementById('searchInput'); // input box for search
-var resultsAvailable = false; // Did we get any search results?
 
 // ==========================================
 // The main keyboard event listener running the show
@@ -16,6 +15,7 @@ window.onload = loadSearch;
 
 // ==========================================
 // execute search as each character is typed
+// a different search box is visible depending on the size of the screen
 //
 document.getElementById("searchInputSmall").onkeyup = function(e) { 
   executeSearch(this.value, 1, 1, 5);
@@ -24,6 +24,14 @@ document.getElementById("searchInputLarge").onkeyup = function(e) {
   executeSearch(this.value, 1, 1, 8);
 }
 
+// ==========================================
+// execute example searches on click
+//
+function exampleSearch(term) {
+  executeSearch(term, 1, 1, 5);
+  document.getElementById("searchInputLarge").value = term;
+  document.getElementById("searchInputSmall").value = term;
+}
 
 // ==========================================
 // fetch some json without jquery
@@ -60,15 +68,15 @@ function loadSearch() {
         'database_title',
         'description',
         'unit_of_observation',
-	'time_series',
-	'publication_year',
-	'version',
-	'date_added',
-	'tags'
+        'time_series',
+        'publication_year',
+        'version',
+        'date_added',
+        'tags'
         ]
     };
     fuse = new Fuse(data, options); // build the index from the json file
-    executeSearch('', 1); // execute search with empty term and page 
+    executeSearch('', 1); // execute search with empty term and page
   });
 }
 
@@ -144,20 +152,16 @@ function buildPageLinks(page, firstPage, lastPage, totalPages, term) {
 // a search query (for "term") every time a letter is typed
 // in the search box
 //
-function executeSearch(term, page, firstPage, lastPage) {
 
-  let results = fuse.search(term); // the actual query being run using fuse.js
-  let searchitems = ''; // our results bucket
-  const itemsPerPage = 5;
 
-  if (results.length === 0) { // no results based on what was typed into the input box
-    searchitems = '';
-  } else { // build our html
+function buildHTML(results, page, itemsPerPage) {
     const start = (page - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     const slicedResults = results.slice(start, end);
 
-    for (let item in slicedResults) { // only show first 5 results
+  searchitems = '';
+
+    for (let item in slicedResults) {
 
     let tags = '';
 
@@ -173,9 +177,21 @@ function executeSearch(term, page, firstPage, lastPage) {
 
     searchitems = searchitems + '<div id="result">' + '<a href=' + slicedResults[item].item.url + '><span class="title">' + slicedResults[item].item.database_title + '</a></span><br/><br/>'+ slicedResults[item].item.description + '<br/><br/><ul class="tags">' + tags + '</ul><hr></div>';
     }
-  resultsAvailable = true;
-  }
-  document.getElementById("searchResults").innerHTML = searchitems;
+   document.getElementById("searchResults").innerHTML = searchitems;
+}
+
+function executeSearch(term, page, firstPage, lastPage) {
+
+  let results = fuse.search(term); // the actual query being run using fuse.js
+  let searchitems = ''; // our results bucket
+  const itemsPerPage = 5;
+
+  if (results.length === 0) { // no results based on what was typed into the input box
+    searchitems = '';
+    document.getElementById("searchResults").innerHTML = '';
+  } else { // build our html
+    buildHTML(results, page, itemsPerPage);
+    }
     // build pagination links
     const totalPages = Math.ceil(results.length / itemsPerPage);
     buildPageLinks(page, firstPage, lastPage, totalPages, term);
