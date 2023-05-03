@@ -11,6 +11,11 @@ html, body {
   margin: 0 auto;
 }
 
+h1 {
+  margin: 80px auto auto auto;
+  text-align: center;
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -188,6 +193,9 @@ footer {
   .title-bar {
     height: 130px;
     font-size: 35px;
+  }
+  h1 {
+    margin: 150px auto auto auto;
   }
   .tags li:after {
     margin: 0 1rem 1rem;
