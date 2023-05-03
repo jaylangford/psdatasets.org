@@ -29,13 +29,28 @@ main {
 }
 
 .input-container {
-  margin: 0 auto;
-  margin-top: 100px;
-  margin-bottom: 20px;
+  margin: 0;
+  //margin-top: 100px;
+  //margin-bottom: 20px;
   width: 100%;
   text-align: center;
 }
 
+#help {
+  background-color: #ccc;
+  border-radius: 7px;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 44%;
+  display: flex;
+  margin: 0 auto 20px auto;
+}
+
+#help p {
+  border: 0px;
+  margin: 0px;
+  }
 /* Style the title bar */
 .title-bar {
   position: fixed;
@@ -65,7 +80,7 @@ input[type=text] {
   width: 75%;
   padding: 10px;
   border: 2px solid #ccc;
-  border-radius: 5px;
+  border-radius: 7px;
   background-color: #f8f8f8;
   font-size: 16px;
 }
@@ -85,7 +100,9 @@ input[type=text]::placeholder {
 
 #fastSearch {
   position: relative;
-  top: -20px;
+ // top: -20px;
+  margin-bottom: 20px;
+  margin-top: 80px;
   align-items: center;
   justify-content: center;
 }
@@ -149,6 +166,9 @@ footer {
 }
 /* Styles for smaller screens */
 @media (max-width: 1000px) {
+  #fastSearch {
+    margin-top: 150px;
+  }
   input[type=text] {
     font-size: 70px;
     padding: 12px;
@@ -161,8 +181,8 @@ footer {
     max-width: 800px;
   }
 
-  .input-container {
-    padding-top: 80px;
+  #help {
+    width: 75%;
   }
 
   .title-bar {
